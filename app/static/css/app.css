@@ -5,3 +5,42 @@ body {
 footer  {
     padding-top: 20px;
 }
+
+.new__list{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    list-style-type: none;
+    grid-row-gap: 50px;
+    grid-column-gap:20px;
+    justify-content: center;   
+}
+.news__item{ 
+    padding: 10px;
+    border-radius: 7px;
+    border-style: solid ;
+    display: flex;
+    flex-direction: column;
+    border-color:#4CAF50 #E8E8E8 #E8E8E8 #E8E8E8 ;
+    border-width: 5px 2px 2px 2px;
+    width:350px;
+}
+
+
+img{
+    margin: 20px 10px;
+    height:180px;
+    width:auto;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 20px ;
+}
+.home, .news h2{
+    text-align: center;
+}
+
+#searchdiv{
+    margin-top: 20px;
+    padding-bottom: 20px;
+}

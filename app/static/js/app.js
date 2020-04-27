@@ -43,38 +43,42 @@ Vue.component('app-footer', {
 
 const NewsList=Vue.component('news-list',{
   template:`
-      <div class="news">
-        <div class="form-inline d-flex justify-content-center">
-            <div class="form-group mx-sm-3 mb-2">
-              <label class="sr-only" for="search"> Search</label>
-              <input type="search" name="search" v-model="searchTerm" id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
-              <button class="btn btn-primary mb-2" @click="searchNews">Search</button>
-            </div>
-          </div>
+        <div class="news" >
         <h2> News</h2>
+        <div class="form-inline d-flex justify-content-center">
+          <div class="form-group mx-sm-3 mb-2" id="searchdiv">
+            <label class="sr-only" for="search"> Search</label>
+            <input type="search" name="search" v-model="searchTerm" id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
+            <button class="btn btn-primary mb-2" @click="searchNews">Search</button>
+          </div>
+        </div>
         <ul class="new__list">
           <li v-for="article in articles" class="news__item">
-              {{ article.title}} 
-              {{article.description}}
+              <p class="title">{{ article.title}} </p>
               <img :src="article.urlToImage">
+              <p> {{article.description}}</p>
           </li>
         </ul>
       </div>
     `,
-
-    created: function() {
+  created: function() {
       let self= this;
       fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=<your-api-key>')
       .then(function(response) {
           return response.json();
       })
-
       .then(function(data) {
           console.log(data);
           self.articles= data.articles;
       });
   },
-  methods: {
+  data: function(){
+      return{
+        articles: [],
+        searchTerm: ''
+      }
+  },
+  methods:{
     searchNews: function() {
       let self = this;
       fetch('https://newsapi.org/v2/everything?q='+self.searchTerm + '&language=en&apiKey=<your-api-key>')
@@ -86,12 +90,6 @@ const NewsList=Vue.component('news-list',{
         self.articles = data.articles;
     });
     }
-  },
-  data: function(){
-      return{
-        articles: [],
-        searchTerm: ''
-      }
   }
 });
 
@@ -108,6 +106,8 @@ const Home = Vue.component('home', {
       }
     }
   });
+
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
